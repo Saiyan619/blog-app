@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
+import Nav from '../../globalComponents/Nav'
 
 
 const PostABlog = () => {
@@ -57,7 +58,11 @@ const PostABlog = () => {
     console.log(blogData)
   return (
     <div>
-     <fieldset className="fieldset">
+
+          <Nav />
+          
+          <div>
+          <fieldset className="fieldset">
   <legend className="fieldset-legend">Title</legend>
   <input onChange={handleTitle} type="text" className="input" placeholder="Type here" />
   <p className="fieldset-label">Optional</p>
@@ -101,6 +106,7 @@ const PostABlog = () => {
 
 <button onClick={postBlog} className="btn">Post</button>
 
+  </div>
           
     </div>
   )
