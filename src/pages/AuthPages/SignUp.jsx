@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useAuth } from '../../utils/Context'
+import Nav from '../../globalComponents/Nav'
 
 const SignUp = () => {
   
@@ -85,6 +86,7 @@ const SignUp = () => {
 
   return (
     <div>
+      <Nav />
               
           <div>
           <label className="input validator">

@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Cards = () => {
+const Cards = ({item}) => {
   return (
     <div className="card bg-base-100 w-80 shadow-sm">
     <figure className="p-5">
@@ -33,7 +34,8 @@ const Cards = () => {
                   </div>
 
               </div>
-    </div>
+      </div>
+      <Link to={`/blog/${item.id}`} className="btn btn-primary">Read More</Link>
   </div>
   )
 }

@@ -4,6 +4,7 @@ import Homepage from './pages/home/Homepage';
 import SignUp from './pages/AuthPages/SignUp';
 import { AuthProvider } from './utils/Context';
 import PostABlog from './pages/postBlog/PostABlog';
+import BlogDetails from './pages/blogs/BlogDetails';
 // import CreateHouse from './pages/HousePosting/CreateHouse';
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/post_a_blog" element={<PostABlog />} />
+        <Route path="/blog/:id" element={<BlogDetails />} />
       </Routes>
     </Router>
    </AuthProvider>
