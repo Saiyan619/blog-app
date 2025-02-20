@@ -5,7 +5,6 @@ import SignUp from './pages/AuthPages/SignUp';
 import { AuthProvider } from './utils/Context';
 import PostABlog from './pages/postBlog/PostABlog';
 import BlogDetails from './pages/blogs/BlogDetails';
-// import CreateHouse from './pages/HousePosting/CreateHouse';
 
 const App = () => {
   return (
