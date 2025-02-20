@@ -3,11 +3,15 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useAuth } from '../../utils/Context'
 import Nav from '../../globalComponents/Nav'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { Bounce, ToastContainer } from 'react-toastify'
 
 const SignUp = () => {
   
-  const { login, register, fetchUserData, isAuthenticated, user, logout } = useAuth()
+  const { loader, notify, notifyError, setloader, fetchUserData, isAuthenticated, user } = useAuth()
+
+  const navigate = useNavigate()
+  console.log(loader)
 
   const [userData, setUserData] = useState({
     email: '',
@@ -62,31 +66,40 @@ const SignUp = () => {
   }
 
   const handleRegistration = async () => {
+    setloader(true)
+    
     try {
       const response = await axios.post("/api/user/register", userData)
       console.log(response)
+      notify()
+      setloader(false)
+      navigate('/')
     } catch (error) {
       console.error(error)
+      setloader(false)
+      notifyError()
       throw new Error;
     }
   }
 
-  const handleLogin = async () => {
-    try {
-      const success = await login(loginData.email, loginData.password)
-      if (success) {
-        console.log('Login successful!')
-      } else {
-        console.error('Login failed')
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
+
 
   return (
     <div>
       <Nav />
+      <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+transition={Bounce}
+/>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-md">
         <div>
@@ -165,12 +178,15 @@ const SignUp = () => {
           </div>
 
           <div>
+            
             <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={handleRegistration}
+              className="btn btn-primary w-full"
             >
+               <span className={`${loader ? "loading" : ''} loading-spinner`}></span>
               Sign up
             </button>
+            
           </div>
           
           <div className="text-center mt-4">

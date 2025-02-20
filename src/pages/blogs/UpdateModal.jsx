@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useAuth } from "../../utils/Context";
 
 const UpdateModal = ({ id }) => {
+  const { editNotify, editNotifyError, loader, setloader } = useAuth();
   const [blogData, setBlogData] = useState({
     title: "",
     excerpt: "",
     content: "",
-    category: "",
+    category: 1,
     status: "",
     image: null, // Store as File, not string
   });
@@ -20,6 +22,7 @@ const UpdateModal = ({ id }) => {
   };
 
   const editBlog = async () => {
+    setloader(true)
     try {
       const formData = new FormData();
       formData.append("title", blogData.title);
@@ -40,10 +43,18 @@ const UpdateModal = ({ id }) => {
       );
 
       console.log(response.data);
+      editNotify()
+      setloader(false)
+
     } catch (error) {
       console.error(error);
+      editNotifyError()
+      setloader(false)
+
     }
   };
+
+  console.log(blogData)
 
   return (
     <div>
@@ -93,8 +104,9 @@ const UpdateModal = ({ id }) => {
           <fieldset className="fieldset">
             <legend className="fieldset-legend">Category</legend>
             <input
+              value={1}
               name="category"
-              onChange={handleChange}
+              // onChange={handleChange}
               type="text"
               className="input"
               placeholder="Type here"
@@ -126,6 +138,7 @@ const UpdateModal = ({ id }) => {
           </fieldset>
 
           <button onClick={editBlog} className="btn btn-primary mt-5">
+          <span className={`${loader ? "loading" : ''} loading-spinner`}></span>
             Update
           </button>
 

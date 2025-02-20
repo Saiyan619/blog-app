@@ -11,7 +11,7 @@ const Cards = ({item}) => {
     <div className="card bg-base-100 w-80 shadow-sm">
       <figure className="p-5">
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+          src={item.image}
           alt="Shoes"
           className="rounded-xl w-70" />
       </figure>

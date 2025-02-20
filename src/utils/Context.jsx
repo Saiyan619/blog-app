@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 // Create the context
 const AuthContext = createContext(null);
@@ -15,12 +16,12 @@ export const AuthProvider = ({ children }) => {
   }));
 
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loader, setloader] = useState(false);
 
   // Configure axios defaults with token
   useEffect(() => {
     if (!tokens.access) {
-      setLoading(false);
+      setloader(true);
       return;
     }
 
@@ -37,6 +38,17 @@ export const AuthProvider = ({ children }) => {
 
     return () => axios.interceptors.request.eject(interceptor);
   }, [tokens.access]);
+
+  const notify = () => toast.success('Wow so easy !');
+  const notifyError = () => toast.error('Error, Something went wrong!!');
+
+const postNotify = () => toast.success('Blog posted successfully');
+  const postNotifyError = () => toast.error('Error, Something went wrong!!, Fill out the inputs');
+
+  const DeleteNotify = () => toast.success('Blog Deleted successfully');
+  
+const editNotify = () => toast.success('Blog Updated successfully');
+const editNotifyError = () => toast.error('Something went wrong, Make sure to fill the required inputs');
 
 
   // Login function
@@ -68,12 +80,11 @@ export const AuthProvider = ({ children }) => {
     console.log(tokens.access)
     // if (!tokens.access) {
     //   console.log("No access token available.");
-    //   setLoading(false);
+    //   setloader(false);
     //   return;
     // }
 
     try {
-      // setLoading(true);
       const response = await axios.get("/api/user");
       // console.log(user)
       setUser(response.data);
@@ -82,17 +93,16 @@ export const AuthProvider = ({ children }) => {
       // if (error.response?.status === 401) {
       //   await refreshAccessToken();
       // }
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
 
   // Register function
+  //Unnecessary code(for now, keeping for later)
   const register = async (userData) => {
     try {
       const response = await axios.post("api/user/register", userData);
-      return response.data;
+      console.log(response.data)
     } catch (error) {
       console.error("Registration error:", error);
       throw error;
@@ -111,12 +121,20 @@ export const AuthProvider = ({ children }) => {
   const value = {
     tokens,
     user,
-    loading,
+    loader,
+    notify,
+    notifyError,
+    postNotify,
+    postNotifyError,
+    DeleteNotify,
+    editNotify,
+editNotifyError,
+    setloader,
     login,
     register,
     logout,
     fetchUserData,
-    isAuthenticated: !!tokens.access,
+    isAuthenticated: tokens.access,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

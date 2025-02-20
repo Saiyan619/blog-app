@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import Nav from "../../globalComponents/Nav";
 import UpdateModal from "./UpdateModal";
 import DeleteBlog from "./DeleteBlog";
+import { Bounce, ToastContainer } from 'react-toastify'
+
 
 const BlogDetails = () => {
   const { id } = useParams();
@@ -29,6 +31,19 @@ const BlogDetails = () => {
   return (
     <div>
       <Nav />
+      <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+transition={Bounce}
+          />
 
           {blogDetails ? (
                   <div className="flex items-center justify-center flex-col w-2/3 m-auto mt-10">

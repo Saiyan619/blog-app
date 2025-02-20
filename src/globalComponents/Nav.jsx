@@ -24,9 +24,9 @@ const Nav = () => {
       <ul
         tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-    <Link to={'/'}><li>Home</li></Link>
-    <Link to={'/post_a_blog'}><li>post Blog</li></Link>
-              <Link to={'/SignUp'}><li>sign up</li></Link>
+    <Link className='hover:bg-gray-200 p-1 rounded capitalize' to={'/'}><li>Home</li></Link>
+              <Link className='hover:bg-gray-200 p-1 rounded capitalize' to={'/post_a_blog'}><li>post Blog</li></Link>
+              <Link  className='hover:bg-gray-200 p-1 rounded capitalize'to={'/SignUp'}><li>sign up</li></Link>
       </ul>
     </div>
                   <a className="btn btn-ghost text-xl">
@@ -35,14 +35,14 @@ const Nav = () => {
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
-    <Link to={'/'}><li>Home</li></Link>
-              <Link to={'/post_a_blog'}><li>post Blog</li></Link>
-              <Link to={'/SignUp'}><li>sign up</li></Link>
+    <Link className='hover:bg-gray-400 p-2' to={'/'}><li>Home</li></Link>
+              <Link className='hover:bg-gray-400 p-2' to={'/post_a_blog'}><li>post Blog</li></Link>
+              <Link  className='hover:bg-gray-400 p-2'to={'/SignUp'}><li>sign up</li></Link>
     </ul>
   </div>
   <div className="navbar-end gap-5">
                   <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-                  <input type="checkbox" defaultChecked className="toggle toggle-sm" />
+                  {/* <input type="checkbox" defaultChecked className="toggle toggle-sm" /> */}
   </div>
 </div>
     </div>

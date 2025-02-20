@@ -4,9 +4,11 @@ import axios from "axios";
 import { useAuth } from "../../utils/Context";
 import Nav from "../../globalComponents/Nav";
 import { useNavigate } from "react-router-dom";
+import { Bounce, ToastContainer } from 'react-toastify'
+
 
 export const Login = () => {
-  const { login, register, fetchUserData, isAuthenticated, user, logout } = useAuth();
+  const { loader, notify, notifyError, setloader, login, register, fetchUserData, isAuthenticated, user, logout } = useAuth();
 
   const navigate = useNavigate();
 
@@ -25,15 +27,21 @@ export const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setloader(true)
     try {
       const success = await login(loginData.email, loginData.password);
       if (success) {
+        notify()
         console.log("Login successful!");
+        setloader(false)
       } else {
         console.error("Login failed");
+        notifyError()
+        setloader(false)
       }
     } catch (error) {
       console.error(error);
+      notifyError()
     }
     console.log("Login submitted:", loginData);
     navigate("/");
@@ -42,6 +50,19 @@ export const Login = () => {
   return (
     <div>
       <Nav />
+      <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+transition={Bounce}
+/>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-md">
           <div>
@@ -133,9 +154,9 @@ export const Login = () => {
               <div>
                 <button
                   type="submit"
-                  onClick={handleSubmit}
                   className="btn btn-primary w-full"
                 >
+                                 <span className={`${loader ? "loading" : ''} loading-spinner`}></span>
                   login
                 </button>
               </div>

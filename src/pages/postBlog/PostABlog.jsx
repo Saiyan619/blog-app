@@ -2,46 +2,58 @@ import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import Nav from '../../globalComponents/Nav'
+import { useAuth } from '../../utils/Context'
+import { Bounce, ToastContainer } from 'react-toastify'
+
 
 
 const PostABlog = () => {
-    const [blogData, setBlogData] = useState({
-        title: '',
-        excerpt: '',
-        content: '',
-        category: '',
-        status: '',
-        image: ''
-    })
-    const handleTitle = (e) => {
-        setBlogData({ ...blogData, title: e.target.value })   
-    }
-    const handleExcerpt = (e) => {      
-        setBlogData({ ...blogData, excerpt: e.target.value })
-    }
-    const handleContent = (e) => {
-        setBlogData({ ...blogData, content: e.target.value })
-    }
-    const handleCategory = (e) => {
-        setBlogData({ ...blogData, category: e.target.value })
-    }
-    const handleStatus = (e) => {
-        setBlogData({ ...blogData, status: e.target.value })    
-    }   
-    const handleImage = (e) => {
-        setBlogData({ ...blogData, image: e.target.files[0].name });
-    }
+    const {loader, setloader, postNotify, postNotifyError} = useAuth()
+   // Separate useState hooks for each field
+const [title, setTitle] = useState('');
+const [excerpt, setExcerpt] = useState('');
+const [content, setContent] = useState('');
+const [category, setCategory] = useState(1);
+const [status, setStatus] = useState('');
+const [image, setImage] = useState(null);
+
+// Separate handler functions
+const handleTitle = (e) => {
+    setTitle(e.target.value);
+};
+
+const handleExcerpt = (e) => {
+    setExcerpt(e.target.value);
+};
+
+const handleContent = (e) => {
+    setContent(e.target.value);
+};
+
+// const handleCategory = (e) => {
+//     setCategory(1);
+//     // setCategory(e.target.value);
+// };
+
+const handleStatus = (e) => {
+    setStatus(e.target.value);
+};
+
+const handleImage = (e) => {
+    setImage(e.target.files[0]);
+};
 
     const postBlog = async () => {
+        setloader(true)
         try {
             // Create FormData object
             const formData = new FormData();
-            formData.append('title', blogData.title);
-            formData.append('excerpt', blogData.excerpt);
-            formData.append('content', blogData.content);
-            formData.append('category', blogData.category);
-            formData.append('status', blogData.status);
-            formData.append('image', blogData.image);
+            formData.append('title', title);
+            formData.append('excerpt', excerpt);
+            formData.append('content', content);
+            formData.append('category', category);
+            formData.append('status', status);
+            formData.append('image', image);
     
             const response = await axios.post('/api/posts/mutate', formData, {
                 headers: {
@@ -50,16 +62,32 @@ const PostABlog = () => {
             });
             
             console.log(response.data);
+            postNotify()
+            setloader(false)
         } catch (error) {
             console.error(error);
+            postNotifyError()
+            setloader(false)
         }
     };
 
-    console.log(blogData)
   return (
     <div>
 
           <Nav />
+          <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+transition={Bounce}
+          />
           
           <h3 className='text-center text-2xl font-bold mt-5'>Create your Blog</h3>
           <div className='flex justify-center items-center w-full'>
@@ -84,7 +112,7 @@ const PostABlog = () => {
           
           <fieldset className="fieldset">
   <legend className="fieldset-legend">Category</legend>
-  <input onClick={handleCategory} type="number" className="input" placeholder="Type here" />
+  <input value={category} disabled type="number" className="input" placeholder="Type here" />
   <p className="fieldset-label">Optional</p>
           </fieldset>
 
@@ -106,7 +134,10 @@ const PostABlog = () => {
 </fieldset>
 
 
-<button onClick={postBlog} className="btn w-full btn-primary mt-5">Post</button>
+                  <button onClick={postBlog} className="btn w-full btn-primary mt-5">
+                  <span className={`${loader ? "loading" : ''} loading-spinner`}></span>
+                      Post
+                  </button>
 
   </div>
        </div>
