@@ -4,9 +4,12 @@ import Nav from '../../globalComponents/Nav'
 import Footer from '../../globalComponents/Footer'
 import Cards from './Cards'
 import { useAuth } from '../../utils/Context'
+import { useNavigate } from 'react-router-dom'
 
 const Homepage = () => {
   const { isAuthenticated, loading, fetchUserData, user } = useAuth()
+
+  const navigate = useNavigate()
 
   const [posts, setPosts] = useState([])
 
@@ -17,15 +20,30 @@ const Homepage = () => {
   //   }
   // }, [isAuthenticated])
 
-  useEffect(() => {
-    fetchUserData()
-  
-  }, [])
-  
 
   useEffect(() => {
     fetchPosts()
-  }, [])
+    fetchUserData()
+    const timeout = setTimeout(() => {
+      if (user) {
+        console.log("user is authenticated!")
+      } else {
+        navigate('/SignUp')
+      }
+    }, 10000); // 5 seconds delay
+  
+    return () => clearTimeout(timeout);
+
+  }, [isAuthenticated])
+
+
+  function checkAuth() {
+    if (user) {
+      console.log("user is authenticated!")
+    } else {
+      navigate('/SignUp')
+    }
+  }
 
   const fetchPosts = async () => {
     try {
@@ -86,7 +104,8 @@ const Homepage = () => {
       <button onClick={fetchSinglePost} className="btn">Single Post</button>
       <button onClick={fetchCategories} className="btn">Categories</button>
       <button onClick={fetchData} className="btn">get User</button> */}
-      
+      <button onClick={checkAuth} className="btn">check auth</button> 
+
       <div
         className="hero min-h-screen"
         style={{

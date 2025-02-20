@@ -38,36 +38,6 @@ export const AuthProvider = ({ children }) => {
     return () => axios.interceptors.request.eject(interceptor);
   }, [tokens.access]);
 
-  
-  // ✅ Refresh Access Token
-//   const refreshAccessToken = async () => {
-//     const refreshToken = tokens.refresh;
-//     if (!refreshToken) {
-//       console.log("No refresh token found. Logging out...");
-//       logout();
-//       return;
-//     }
-
-//     try {
-//       const response = await axios.post(`api/user/token/refresh/`, {
-//         refresh: refreshToken,
-//       });
-
-//       const newAccessToken = response.data.access;
-
-//       localStorage.setItem("accessToken", newAccessToken);
-//       setTokens((prevTokens) => ({
-//         ...prevTokens,
-//         access: newAccessToken,
-//       }));
-
-//       console.log("Access token refreshed. Fetching user data...");
-//       fetchUserData();
-//     } catch (error) {
-//       console.error("Failed to refresh token:", error);
-//       logout();
-//     }
-//   };
 
   // Login function
   const login = async (email, password) => {
