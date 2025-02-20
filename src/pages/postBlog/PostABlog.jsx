@@ -61,7 +61,9 @@ const PostABlog = () => {
 
           <Nav />
           
-          <div>
+          <h3 className='text-center text-2xl font-bold mt-5'>Create your Blog</h3>
+          <div className='flex justify-center items-center w-full'>
+          <div >
           <fieldset className="fieldset">
   <legend className="fieldset-legend">Title</legend>
   <input onChange={handleTitle} type="text" className="input" placeholder="Type here" />
@@ -104,9 +106,10 @@ const PostABlog = () => {
 </fieldset>
 
 
-<button onClick={postBlog} className="btn">Post</button>
+<button onClick={postBlog} className="btn w-full btn-primary mt-5">Post</button>
 
   </div>
+       </div>
           
     </div>
   )
