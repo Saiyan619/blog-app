@@ -30,7 +30,7 @@ const BlogDetails = () => {
     <div>
       <Nav />
 
-          {!blogDetails ? (
+          {blogDetails ? (
                   <div className="flex items-center justify-center flex-col w-2/3 m-auto mt-10">
               
                   <div className="flex flex-col justify-center m-auto gap-7">
@@ -38,7 +38,7 @@ const BlogDetails = () => {
                       <div className="flex flex-col justify-start">
                           
                           <div>
-                          <div className="badge badge-primary">Primary</div>
+                          <div className="badge badge-primary">Technology</div>
                           </div>
             
                           <div className="mt-1">
@@ -61,7 +61,7 @@ const BlogDetails = () => {
             
                       </div>
         
-                          <div>
+                          <div className="flex gap-4">
                               <UpdateModal id={id} />
                               <DeleteBlog id={id} />
                           </div>

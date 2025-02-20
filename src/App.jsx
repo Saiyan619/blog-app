@@ -5,6 +5,7 @@ import SignUp from './pages/AuthPages/SignUp';
 import { AuthProvider } from './utils/Context';
 import PostABlog from './pages/postBlog/PostABlog';
 import BlogDetails from './pages/blogs/BlogDetails';
+import { Login } from './pages/AuthPages/Login';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/Login" element={<Login />} />
         <Route path="/post_a_blog" element={<PostABlog />} />
         <Route path="/blog/:id" element={<BlogDetails />} />
       </Routes>

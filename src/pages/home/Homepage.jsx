@@ -104,7 +104,7 @@ const Homepage = () => {
       <button onClick={fetchSinglePost} className="btn">Single Post</button>
       <button onClick={fetchCategories} className="btn">Categories</button>
       <button onClick={fetchData} className="btn">get User</button> */}
-      <button onClick={checkAuth} className="btn">check auth</button> 
+      {/* <button onClick={checkAuth} className="btn">check auth</button>  */}
 
       <div
         className="hero min-h-screen"

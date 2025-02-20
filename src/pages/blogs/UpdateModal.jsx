@@ -55,6 +55,8 @@ const UpdateModal = ({ id }) => {
       </button>
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
+
+          <h3 className="text-2xl mb-5">Edit your Blog Post here</h3>
           <fieldset className="fieldset">
             <legend className="fieldset-legend">Title</legend>
             <input
@@ -64,7 +66,6 @@ const UpdateModal = ({ id }) => {
               className="input"
               placeholder="Type here"
             />
-            <p className="fieldset-label">Optional</p>
           </fieldset>
 
           <fieldset className="fieldset">
@@ -76,7 +77,6 @@ const UpdateModal = ({ id }) => {
               className="input"
               placeholder="Type here"
             />
-            <p className="fieldset-label">Optional</p>
           </fieldset>
 
           <fieldset className="fieldset">
@@ -87,7 +87,7 @@ const UpdateModal = ({ id }) => {
               className="textarea h-24"
               placeholder="content"
             ></textarea>
-            <div className="fieldset-label">Optional</div>
+              <p className="fieldset-label text-red-600">Required</p>
           </fieldset>
 
           <fieldset className="fieldset">
@@ -98,8 +98,9 @@ const UpdateModal = ({ id }) => {
               type="text"
               className="input"
               placeholder="Type here"
+              disabled
             />
-            <p className="fieldset-label">Optional</p>
+                          <p className="fieldset-label text-red-600">Required</p>
           </fieldset>
 
           <fieldset className="fieldset">
@@ -114,16 +115,17 @@ const UpdateModal = ({ id }) => {
               <option value="draft">Draft</option>
               <option value="published">Published</option>
             </select>
-            <span className="fieldset-label">Optional</span>
           </fieldset>
 
           <fieldset className="fieldset">
             <legend className="fieldset-legend">Pick an Image</legend>
             <input onChange={handleImage} type="file" className="file-input" />
             <label className="fieldset-label">Max size 2MB</label>
+            <p className="fieldset-label text-red-600">Required</p>
+
           </fieldset>
 
-          <button onClick={editBlog} className="btn">
+          <button onClick={editBlog} className="btn btn-primary mt-5">
             Update
           </button>
 

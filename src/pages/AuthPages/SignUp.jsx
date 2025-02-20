@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useAuth } from '../../utils/Context'
 import Nav from '../../globalComponents/Nav'
+import { Link } from 'react-router-dom'
 
 const SignUp = () => {
   
@@ -20,7 +21,6 @@ const SignUp = () => {
     email: '',
     password: '',
   })
-  console.log(user)
   
   // const [tokens, setTokens] = useState({
   //   access: '',
@@ -87,95 +87,102 @@ const SignUp = () => {
   return (
     <div>
       <Nav />
-              
-          <div>
-          <label className="input validator">
-  <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></g></svg>
-  <input value={userData.email}  onChange={handleEmail} type="email" placeholder="mail@site.com" required/>
-</label>
-<div className="validator-hint hidden">Enter valid email address</div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-md">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Create your account
+          </h2>
+        </div>
+          <div className="rounded-md shadow-sm -space-y-px">
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 mb-2">
+                  First name
+                </label>
+                <input
+                  id="first-name"
+                  name="firstName"
+                  type="text"
+                  autoComplete="given-name"
+                  required
+                  className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="First name"
+                  value={userData.first_name}
+                  onChange={handleFirstName}
+                />
+              </div>
+              <div>
+                <label htmlFor="last-name" className="block text-sm font-medium text-gray-700 mb-2">
+                  Last name
+                </label>
+                <input
+                  id="last-name"
+                  name="lastName"
+                  type="text"
+                  autoComplete="family-name"
+                  required
+                  className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="Last name"
+                  value={userData.last_name}
+                  onChange={handleLastName}
+                />
+              </div>
+            </div>
+            <div className="mb-4">
+              <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 mb-2">
+                Email address
+              </label>
+              <input
+                id="email-address"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Email address"
+                value={userData.email}
+                onChange={handleEmail}
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                required
+                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Password"
+                value={userData.password}
+                onChange={handlePassword}
+              />
+            </div>
+           
           </div>
-          
-      
 
           <div>
-  <label className="input validator">
-  <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></g></svg>
-  <input value={userData.first_name} onChange={handleFirstName} type="input" required placeholder="Username" pattern="[A-Za-z][A-Za-z0-9\-]*" minlength="3" maxlength="30" title="Only letters, numbers or dash" />
-</label>
-<p className="validator-hint">
-  Must be 3 to 30 characters
-  <br/>containing only letters, numbers or dash
-</p>
+            <button
+              type="submit"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Sign up
+            </button>
           </div>
           
-          <div>
-  <label className="input validator">
-  <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></g></svg>
-  <input value={userData.last_name}  onChange={handleLastName} type="input" required placeholder="Username" pattern="[A-Za-z][A-Za-z0-9\-]*" minlength="3" maxlength="30" title="Only letters, numbers or dash" />
-</label>
-<p className="validator-hint">
-  Must be 3 to 30 characters
-  <br/>containing only letters, numbers or dash
-</p>
+          <div className="text-center mt-4">
+            <p className="text-sm text-gray-600">
+              Already have an account?{' '}
+              <Link to={'/Login'} className="font-medium text-indigo-600 hover:text-indigo-500">
+                Sign in
+              </Link>
+            </p>
           </div>
-
-
-          <div>
-              
-          <label className="input validator">
-  <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle></g></svg>
-  <input onChange={handlePassword} type="password" required placeholder="Password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
-</label>
-<p className="validator-hint hidden">
-  Must be more than 8 characters, including
-  <br/>At least one number
-  <br/>At least one lowercase letter
-  <br/>At least one uppercase letter
-          </p>
-          
       </div>
-      
-      <div>
-        <button onClick={handleRegistration} className='btn btn-primary'>Register</button>
-      </div> 
-      
-      <div>
-        <button onClick={fetchUser} className='btn btn-primary'>get user</button>
-      </div>
-
-
-      {/* ///////////////////////////////////////////////////////////////// */}
-
-
-      <div>
-          <label className="input validator">
-  <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></g></svg>
-  <input value={loginData.email} onChange={handleEmailLogin} type="email" placeholder="mail@site.com" required/>
-</label>
-<div className="validator-hint hidden">Enter valid email address</div>
-          </div>
-          
-
-
-      <div>
-              
-              <label className="input validator">
-      <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle></g></svg>
-      <input onChange={handlePasswordLogin} type="password" required placeholder="Password" minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must be more than 8 characters, including number, lowercase letter, uppercase letter" />
-    </label>
-    <p className="validator-hint hidden">
-      Must be more than 8 characters, including
-      <br/>At least one number
-      <br/>At least one lowercase letter
-      <br/>At least one uppercase letter
-              </p>
-              
-          </div>
-
-          <div>
-        <button onClick={handleLogin} className='btn btn-primary'>login</button>
-      </div>
+    </div>
 
     </div>
   )
